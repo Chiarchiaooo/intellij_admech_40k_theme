@@ -1,0 +1,145 @@
+name: "Build and Release"
+
+on:
+  workflow_call:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version"
+        required: false
+        default: "1.0.0"
+        type: string
+      force_release:
+        description: "Force release even if no changes detected"
+        required: false
+        type: boolean
+        default: false
+  push:
+    branches: [ main, develop ] 
+  merge_group:
+    branches: [ main ]
+
+jobs:
+  tagging:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write 
+    if: github.event_name == 'workflow_call' || github.event_name == 'workflow_dispatch' || contains(fromJson('["main", "develop"]'), github.ref_name)
+    outputs:
+      release_tag: ${{ steps.versioning.outputs.tag }}
+      release_version: ${{ steps.versioning.outputs.new_version }}
+      tag_pushed: ${{ steps.versioning.outputs.tag_pushed }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 
+
+      - name: Automated Semantic Versioning
+        id: versioning
+        uses: anothrNick/github-tag-action@1.70.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          default_increment: none 
+          initial_version: 1.0.0
+          tag_prefix: v
+          skip_unshallow: true
+          custom_tag: ${{ github.event.inputs.version }} 
+          force_without_changes: ${{ github.event.inputs.force_release }}
+
+  create-release:
+    needs: tagging
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    if: |
+      needs.tagging.outputs.tag_pushed == 'true' || 
+      (github.event.inputs.force_release == 'true' && github.event.inputs.version != '')
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 
+
+      - name: Validate and set release version
+        run: |
+          VERSION="${{ needs.tagging.outputs.release_version }}"
+          
+          if [ -z "$VERSION" ]; then
+            VERSION="${{ github.event.inputs.version }}"
+          fi
+          
+          if [ -z "$VERSION" ]; then
+            echo "ERROR: No version available for release"
+            exit 1
+          fi
+          
+          echo "Detected Version: $VERSION"
+          echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Create Release Artifact ZIP
+        id: zip
+        run: |
+          mkdir -p out release
+          
+          cp -r -t out/ theme_* META-INF/ LICENSE README.md
+          
+          ARTIFACT_FILENAME="adeptus_mechanicus_40k_theme-${{ env.RELEASE_VERSION }}.zip"
+          ARTIFACT_PATH="release/$ARTIFACT_FILENAME"
+
+          zip -j -r "$ARTIFACT_PATH" out/* && rm -r out
+          
+          echo "artifact_path=$ARTIFACT_PATH" >> $GITHUB_OUTPUT
+          echo "artifact_filename=$ARTIFACT_FILENAME" >> $GITHUB_OUTPUT
+
+      - name: Upload bundle artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.zip.outputs.artifact_filename }}
+          path: ${{ steps.zip.outputs.artifact_path }}
+          retention-days: 90
+          
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ needs.tagging.outputs.release_tag != '' && needs.tagging.outputs.release_tag || format('v{0}', github.event.inputs.version) }}
+          name: ${{ steps.zip.outputs.artifact_filename }}
+          files: ${{ steps.zip.outputs.artifact_path }}
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          body: |
+            +++ _**INBOUND TRANSMISSION**_: CANTICLE OF THE OMNISSIAH +++
+            +++ _**DESIGNATION**_: RELEASE ${{ steps.zip.outputs.artifact_filename }} +++
+            +++ _**ORIGIN**_: FORGE WORLD MARS // Sectum Solar +++
+
+            /// **SECTOR 1**: ACQUISITION VIA NOOSPHERE (JETBRAINS MARKETPLACE - *RECOMMENDED*) ///
+
+            1. Engage **Settings/Preferences** protocols in your JetBrains Cogitator(IDE).
+            2. Navigate data-paths to **Plugins** > **Marketplace**.
+            3. Initiate search query for **"Adeptus Mechanicus Theme"**.
+            4. Perform the **Rite of Installation**.
+            5. Perform the **Prayer of Reinitialization** (Restart the IDE) when the Machine Spirit demands it.
+            6. Select the sacred schema 'Mechanicus Forge World'(dark) or 'Mechanicus Sacred Data-Slate'(light) from Appearance settings.
+            7. Rejoice in the blessings of the Omnissiah.
+
+            /// **SECTOR 2**: MANUAL ENGRAM IMPLANTATION (FROM DISK) ///
+
+            1. Download the sacred `.jar` construct.
+            2. Engage **Settings/Preferences** protocols in your JetBrains Cogitator.
+            3. Navigate data-paths to **Plugins**.
+            4. Activate the **⚙️** icon and perform the rite **"Install Plugin from Disk..."**.
+            5. Select the downloaded `.jar` construct.
+            6. Perform the **Prayer of Reinitialization** (Restart the IDE) when the Machine Spirit demands it
+            7. Select the sacred schema 'Mechanicus Forge World'(dark) or 'Mechanicus Sacred Data-Slate'(light) from Appearance settings.
+            8. Rejoice in the glory of the Omnissiah.
+
+            May the Motive Force ensure your logic remains pure and your compilation free of heresy.
+
+            **PRAISE THE OMNISSIAH, PRAISE THE MACHINE GOD.**
+            +++ _**END OF TRANSMISSION**_ +++
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
