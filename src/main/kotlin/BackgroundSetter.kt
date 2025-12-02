@@ -9,15 +9,17 @@ import java.nio.file.Paths
 class BackgroundSetter : StartupActivity {
     override fun runActivity(project: Project) {
         applyBackgroundForCurrentScheme()
+
         // Listen for scheme changes
-        EditorColorsManager.getInstance().addEditorColorsListener { scheme ->
-            applyBackgroundForCurrentScheme()
-        }
+        EditorColorsManager.getInstance().addEditorColorsListener { this::applyBackgroundForCurrentScheme }
     }
 
     private fun applyBackgroundForCurrentScheme() {
         val scheme = EditorColorsManager.getInstance().globalScheme
-        val pluginPath = Paths.get(System.getProperty("user.dir")) // adjust to your plugin path
+        val pluginPath = Paths.get(javaClass.protectionDomain.codeSource.location.toURI()).parent
+
+        if (scheme.name != lightSchemeName && scheme.name != darkSchemeName) return
+
         val imageFile = when {
             scheme.isDark -> pluginPath.resolve("resources/images/background_dark.png").toString()
             else -> pluginPath.resolve("resources/images/background_light.png").toString()
