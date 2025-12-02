@@ -4,7 +4,7 @@ plugins {
     kotlin("jvm") version "1.9.0"
 }
 
-group = "com.example"
+group = "com.mechanicus.theme"
 version = "1.0.0"
 
 repositories {
@@ -22,6 +22,6 @@ tasks {
     }
 
     buildPlugin {
-        archiveFileName.set("my-theme-plugin.zip")
+        archiveFileName.set("adeptus-mechanicus-theme.jar")
     }
 }
