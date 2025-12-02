@@ -7,6 +7,9 @@ import com.intellij.openapi.vfs.LocalFileSystem
 import java.nio.file.Paths
 
 class BackgroundSetter : StartupActivity {
+    private final val lightSchemeName = "Mechanicus Sacred Data-Slate"
+    private final val darkSchemeName = "Mechanicus Forge World"
+
     override fun runActivity(project: Project) {
         applyBackgroundForCurrentScheme()
 
@@ -26,7 +29,8 @@ class BackgroundSetter : StartupActivity {
         }
         val file = LocalFileSystem.getInstance().findFileByPath(imageFile) ?: return
 
-        val settings = com.intellij.openapi.options.colors.ColorSettingsUtil.getBackgroundImageSettings()
+        val settings = ColorSettingsUtil.getBackgroundImageSettings()
+
         settings.file = file.toNioPath()
         settings.opacity = 0.2 // adjust transparency
         settings.visible = true
