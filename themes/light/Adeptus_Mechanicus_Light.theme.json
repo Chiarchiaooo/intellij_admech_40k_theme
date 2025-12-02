@@ -1,8 +1,8 @@
 {
   "name": "Mechanicus Sacred Data-Slate",
   "dark": false,
-  "author": "Tech-Priest",
-  "editorScheme": "/theme_light/themes/Adeptus_Mechanicus_Light_Editor.xml",
+  "author": "Chiarchiaooo",
+  "editorScheme": "/themes/light/editor/Adeptus_Mechanicus_Light_Editor.xml",
   "ui": {
     "*": {
       "background": "#F5F0E6",
