@@ -1,0 +1,27 @@
+plugins {
+    id("java")
+    id("org.jetbrains.intellij") version "1.17.0"
+    kotlin("jvm") version "1.9.0"
+}
+
+group = "com.example"
+version = "1.0.0"
+
+repositories {
+    mavenCentral()
+}
+
+intellij {
+    version.set("2025.2") // Target IntelliJ version
+    type.set("IC") // Community edition
+}
+
+tasks {
+    patchPluginXml {
+        changeNotes.set("Initial release of My Theme Plugin with wallpapers")
+    }
+
+    buildPlugin {
+        archiveFileName.set("my-theme-plugin.zip")
+    }
+}

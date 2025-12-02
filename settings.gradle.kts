@@ -1,0 +1,1 @@
+rootProject.name = "adeptus-mechanicus-theme"
