@@ -2,7 +2,7 @@
 
 > **Warhammer 40K Adeptus Mechanicus themes - Dark forge world and light parchment themes from The Grimdarkness of the Far future. Praise the Omnissiah\!**
 
-[`widget-demo.html`](./widget-demo.html) in your browser to see the working Marketplace Widget.
+[Look it up on the marketplace](./widget-demo.html) in your browser to see the working Marketplace Widget.
 
 
 <br>
