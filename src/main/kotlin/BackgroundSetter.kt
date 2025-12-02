@@ -19,8 +19,8 @@ class BackgroundSetter : StartupActivity {
         val scheme = EditorColorsManager.getInstance().globalScheme
         val pluginPath = Paths.get(System.getProperty("user.dir")) // adjust to your plugin path
         val imageFile = when {
-            scheme.isDark -> pluginPath.resolve("resources/images/dark-bg.png").toString()
-            else -> pluginPath.resolve("resources/images/light-bg.png").toString()
+            scheme.isDark -> pluginPath.resolve("resources/images/background_dark.png").toString()
+            else -> pluginPath.resolve("resources/images/background_light.png").toString()
         }
         val file = LocalFileSystem.getInstance().findFileByPath(imageFile) ?: return
 
