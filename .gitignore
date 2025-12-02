@@ -10,7 +10,7 @@ test*.*
 .vscode/
 .idea/
 .gradle/
-build/reports
+build/
 
 # Exclude Git-generated files
 .git/
