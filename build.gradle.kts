@@ -1,14 +1,19 @@
 plugins {
     id("java")
     id("org.jetbrains.intellij") version "1.17.0"
-    kotlin("jvm") version "1.9.0"
+    kotlin("jvm") version "2.0.21"
 }
 
 group = "com.mechanicus.theme"
-version = "1.0.0"
+version = "1.0.1"
 
 repositories {
     mavenCentral()
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 intellij {
