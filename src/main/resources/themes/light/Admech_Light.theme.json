@@ -2,7 +2,7 @@
   "name": "Mechanicus Sacred Data-Slate",
   "dark": false,
   "author": "Chiarchiaooo",
-  "editorScheme": "/themes/light/editor/Admech_Editor_Light.editor.xml",
+  "editorScheme": "/themes/light/editor/Admech_Editor_Light.xml",
   "ui": {
     "*": {
       "background": "#F5F0E6",

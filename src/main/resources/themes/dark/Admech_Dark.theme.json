@@ -2,7 +2,7 @@
   "name": "Mechanicus Forge World",
   "dark": true,
   "author": "Chiarchiaooo",
-  "editorScheme": "/themes/dark/editor/Admech_Editor_Dark.editor.xml",
+  "editorScheme": "/themes/dark/editor/Admech_Editor_Dark.xml",
   "ui": {
     "*": {
       "background": "#1A0A0A",
