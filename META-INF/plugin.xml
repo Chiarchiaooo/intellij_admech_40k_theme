@@ -1,22 +1,30 @@
 <idea-plugin>
-  <id>com.mechanicus.theme</id>
-  <name>Adeptus Mechanicus Theme</name>
-  <vendor email="contact@chiarchiaooo.dev" url="https://github.com/JetBrains/intellij-platform-plugin-template">Chiarchiaooo </vendor>
-  <description>Warhammer 40K Adeptus Mechanicus themes - Dark forge world and light parchment versions. Praise the Omnissiah!</description>
-  <version>1.0</version>
-  
-  <idea-version since-build="193.0"/>
-  
-  <depends>com.intellij.modules.platform</depends>
-  
-  <extensions defaultExtensionNs="com.intellij">
-    <themeProvider id="com.mechanicus.theme.dark" path="/themes/dark/Adeptus_Mechanicus_Dark.theme.json"/>
-    <themeProvider id="com.mechanicus.theme.light" path="/themes/light/Adeptus_Mechanicus_Light.theme.json"/>
-  </extensions>
+    <id>com.mechanicus.theme</id>
+    <name>Adeptus Mechanicus Theme</name>
+    <description>Warhammer 40K Adeptus Mechanicus themes - Dark forge world and light parchment versions. Praise the
+        Omnissiah!
+    </description>
 
-  <application-components>
-    <component>
-        <implementation-class>BackgroundSetter</implementation-class>
-    </component>
-  </application-components>
+    <icon>META-INF/pluginIcon.svg</icon>
+
+    <vendor email="contact@chiarchiaooo.dev" url="https://github.com/JetBrains/intellij-platform-plugin-template">
+            Chiarchiaooo
+    </vendor>
+
+    <version>1.0</version>
+    <idea-version since-build="193.0"/>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <themeProvider id="com.mechanicus.theme.dark" path="/themes/dark/Adeptus_Mechanicus_Dark.theme.json"/>
+        <themeProvider id="com.mechanicus.theme.light" path="/themes/light/Adeptus_Mechanicus_Light.theme.json"/>
+    </extensions>
+
+    <application-components>
+        <component>
+            <implementation-class>BackgroundSetter</implementation-class>
+        </component>
+    </application-components>
+
 </idea-plugin>
