@@ -2,7 +2,7 @@
   "name": "Mechanicus Sacred Data-Slate",
   "dark": false,
   "author": "Chiarchiaooo",
-  "editorScheme": "/themes/light/editor/Adeptus_Mechanicus_Light_Editor.xml",
+  "editorScheme": "/themes/light/editor/Admech_Editor_Light.editor.xml",
   "ui": {
     "*": {
       "background": "#F5F0E6",
@@ -21,6 +21,11 @@
       "hoverBorderColor": "#D4AF37",
       "pressedBackground": "#D4AF37",
       "pressedBorderColor": "#C5A03E"
+    },
+    "backgroundImage": {
+      "path": "images/background_light.png",
+      "opacity": 0.09,
+      "fill": "SCALE"
     },
     "Button": {
       "default": {
