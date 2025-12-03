@@ -1,7 +1,7 @@
 plugins {
     id("java")
     id("org.jetbrains.intellij") version "1.17.0"
-    kotlin("jvm") version "2.0.21"
+    kotlin("jvm") version "2.2.0"
 }
 
 group = "com.mechanicus.theme"
@@ -9,6 +9,14 @@ version = "1.0.1"
 
 repositories {
     mavenCentral()
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs("src/main/resources")
+        }
+    }
 }
 
 java {
@@ -22,6 +30,17 @@ intellij {
 }
 
 tasks {
+    processResources {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        from(projectDir) {
+            include("LICENSE","README.md")
+        }
+        from("src/main/resources/META-INF") {
+            include("pluginIcon.svg", "pluginIcon.png")
+            into("META-INF")
+        }
+    }
+
     buildPlugin {
         archiveFileName.set("adeptus-mechanicus-theme.jar")
     }
