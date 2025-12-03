@@ -2,8 +2,6 @@
 
 > **Warhammer 40K Adeptus Mechanicus themes - Dark forge world and light parchment themes from The Grimdarkness of the Far future. Praise the Omnissiah\!**
 
-[Look it up on the marketplace](./widget-demo.html) in your browser to see the working Marketplace Widget.
-
 
 <br>
 This repository contains the **Adeptus Mechanicus Theme** for IntelliJ IDEA and other JetBrains IDEs. It provides a visual experience inspired by the Tech-Priests of Mars or the "Cult Mechanicus" from Warhammer 40000.
