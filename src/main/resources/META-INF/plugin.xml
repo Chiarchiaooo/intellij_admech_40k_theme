@@ -17,8 +17,8 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <themeProvider id="com.mechanicus.theme.dark" path="/themes/dark/Adeptus_Mechanicus_Dark.theme.json"/>
-        <themeProvider id="com.mechanicus.theme.light" path="/themes/light/Adeptus_Mechanicus_Light.theme.json"/>
+        <themeProvider id="com.mechanicus.theme.dark" path="/themes/dark/Admech_Dark.theme.json"/>
+        <themeProvider id="com.mechanicus.theme.light" path="/themes/light/Admech_Light.theme.json"/>
     </extensions>
 
     <application-components>

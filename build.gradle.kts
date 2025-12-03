@@ -36,8 +36,12 @@ tasks {
             include("LICENSE","README.md")
         }
         from("src/main/resources/META-INF") {
-            include("pluginIcon.svg", "pluginIcon.png")
+            include("*")
             into("META-INF")
+        }
+        from("src/main/resources/themes") {
+            include("*")
+            into("themes")
         }
     }
 
