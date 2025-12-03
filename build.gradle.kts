@@ -22,10 +22,6 @@ intellij {
 }
 
 tasks {
-    patchPluginXml {
-        changeNotes.set("Initial release of My Theme Plugin with wallpapers")
-    }
-
     buildPlugin {
         archiveFileName.set("adeptus-mechanicus-theme.jar")
     }
